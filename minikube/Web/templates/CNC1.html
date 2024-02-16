@@ -1,0 +1,531 @@
+{% extends 'base.html' %}
+{%block NAV_Dashbord_open%}menu-is-opening menu-open{%endblock%}
+{% block NAV%}active{%endblock%}
+{%block Path%}CNC1{%endblock%}
+{% block CNC%}active{%endblock%}
+{% block container_field %}
+        <!-- Small boxes (Stat box) -->
+        <div class="row ">
+          <div class="col-4">
+            <!-- small box -->
+            <div class="small-box bg-info pb-4">
+              <div class="col">
+                <div class="row">
+                  <div class="col text-center pt-4 pb-3"><h3>相對座標</h3></div>
+                  <div class="icon">
+                    <i class="ion ion-ios-navigate"></i>
+                  </div>
+
+                </div>
+                <div class="row pb-1">
+                  <div class="col text-center">x</div>
+                  <div class="col text-center">y</div>
+                  <div class="col text-center">z</div>
+                </div>
+                <div class="row">
+                  <div class="col text-center" id="relative_x">loading</div>
+                  <div class="col text-center" id="relative_y">loading</div>
+                  <div class="col text-center" id="relative_z">loading</div>
+                </div>
+                
+              </div> 
+            </div>
+          </div>
+          <div class="col-4">
+            <!-- small box -->
+            <div class="small-box bg-info pb-4">
+              <div class="col">
+                <div class="row">
+                  <div class="col text-center pt-4 pb-3"><h3>絕對座標</h3></div>
+                  <div class="icon">
+                    <i class="ion ion-android-locate"></i>
+                  </div>
+
+                </div>
+                <div class="row pb-1">
+                  <div class="col text-center" >x</div>
+                  <div class="col text-center" >y</div>
+                  <div class="col text-center" >z</div>
+                </div>
+                <div class="row">
+                  <div class="col text-center" id="absolute_x">loading</div>
+                  <div class="col text-center" id="absolute_y">loading</div>
+                  <div class="col text-center" id="absolute_z">loading</div>
+                </div>
+              </div> 
+            </div>
+          </div>
+          <div class="col-4">
+            <!-- small box -->
+            <div class="small-box bg-info pt-4 pb-4">
+                <div class="row pb-2">
+                  <div class="col text-center">F:</div>
+                  <div class="col text-center" id="f">0</div>
+                  <div class="col text-center">MM/MIN</div>
+                </div>
+                <div class="row pb-2">
+                  <div class="col text-center">加工部品數:</div>
+                  <div class="col text-center" id="process_num">0</div>
+                  <div class="col text-center"></div>
+                </div>
+                <div class="row pb-2">
+                  <div class="col text-center">運轉時間:</div>
+                  <div class="col text-center" id="running_time">0</div>
+                  <div class="col text-center"></div>
+                </div>
+                <div class="row">
+                  <div class="col text-center">循環時間:</div>
+                  <div class="col text-center" id="cycle_time">0</div>
+                  <div class="col text-center"></div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="row ">
+          <div class="col-4">
+            <!-- small box -->
+            <div class="small-box bg-info pb-4">
+              <div class="col">
+                <div class="row">
+                  <div class="col text-center pt-4 pb-3"><h3>機械座標</h3></div>
+                  <div class="icon">
+                    <i class="ion ion-android-compass"></i>
+                  </div>
+
+                </div>
+                <div class="row pb-1">
+                  <div class="col text-center">x</div>
+                  <div class="col text-center">y</div>
+                  <div class="col text-center">z</div>
+                </div>
+                <div class="row">
+                  <div class="col text-center" id="machine_x">loading</div>
+                  <div class="col text-center" id="machine_y">loading</div>
+                  <div class="col text-center" id="machine_z">loading</div>
+                </div>
+              </div> 
+            </div>
+          </div>
+          <div class="col-4">
+            <!-- small box -->
+            <div class="small-box bg-info pb-4">
+              <div class="col">
+                <div class="row">
+                  <div class="col text-center pt-4 pb-3"><h3>殘移動量</h3></div>
+                  <div class="icon">
+                    <i class="ion ion-android-car"></i>
+                  </div>
+
+                </div>
+                <div class="row pb-1">
+                  <div class="col text-center">x</div>
+                  <div class="col text-center">y</div>
+                  <div class="col text-center">z</div>
+                </div>
+                <div class="row">
+                  <div class="col text-center" id="momentum_x">loading</div>
+                  <div class="col text-center" id="momentum_y">loading</div>
+                  <div class="col text-center" id="momentum_z">loading</div>
+                </div>
+              </div> 
+            </div>
+          </div>
+          <div class="col-4">
+            <!-- small box -->
+            <div class="small-box bg-info pb-3">
+                <div class="row pt-4">
+                  <div class="col text-center"><h3>機器狀態</h3></div>
+                </div>
+                <div class="row">
+                  <div class="col text-center">
+                    <svg height="75" width="75"><circle cx="37.5" cy="37.5" r="30" stroke="black" stroke-width="3" fill="#006000"></circle></svg>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="row ">
+          <div class="col-3">
+            <!-- small box -->
+            <div class="small-box bg-info pb-3">
+              <div class="row pt-4">
+                <div class="col text-center"><h3>緊急停止</h3></div>
+              </div>
+              <div class="row">
+                <div class="col text-center">
+                  <svg height="75" width="75"><circle cx="37.5" cy="37.5" r="30" stroke="yellow" stroke-width="10" fill="#600000"></circle></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="col">
+                <div class="row pt-3 pb-3 px-2">
+                  <div class="col-3 text-center">
+                    <img id="svg1" src="dist/img/CNC/1.svg" class="panelImg">
+                  </div> 
+                  <div class="col-3 text-center">
+                    <img id="svg2" src="dist/img/CNC/2.svg" class="panelImg">
+                  </div> 
+                  <div class="col-3 text-center">
+                    <img id="svg3" src="dist/img/CNC/3.svg" class="panelImg">
+                  </div> 
+                  <div class="col-3 text-center">
+                    <img id="svg4" src="dist/img/CNC/4.svg" class="panelImg">
+                  </div> 
+                </div>
+                <div class="row pb-3 px-2">
+                  <div class="col-3 text-center">
+                    <img id="svg5" src="dist/img/CNC/5.svg" class="panelImg">
+                  </div> 
+                  <div class="col-3 text-center">
+                    <img id="svg6" src="dist/img/CNC/6.svg" class="panelImg">
+                  </div> 
+                  <div class="col-3 text-center">
+                    <img id="svg7" src="dist/img/CNC/7.svg" class="panelImg">
+                  </div> 
+                  <div class="col-3 text-center">
+                    <img id="svg8" src="dist/img/CNC/8.svg" class="panelImg">
+                  </div> 
+                </div>
+              </div> 
+            </div>
+          </div>
+          <div class="col-3">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="col">
+                <div class="row pt-3 pb-3 px-2">
+                  <div class="col-4 text-center">
+                    <img id="svg9" src="dist/img/CNC/9.svg" class="panelImg light">
+                  </div> 
+                  <div class="col-4 text-center">
+                    <img id="svg10" src="dist/img/CNC/10.svg" class="panelImg">
+                  </div> 
+                  <div class="col-4 text-center">
+                    <img id="svg11" src="dist/img/CNC/11.svg" class="panelImg">
+                  </div> 
+                </div>
+                <div class="row pb-3 px-2">
+                  <div class="col-4 text-center">
+                    <img id="svg12" src="dist/img/CNC/12.svg" class="panelImg">
+                  </div> 
+                  <div class="col-4 text-center">
+                    <img id="svg13" src="dist/img/CNC/13.svg" class="panelImg">
+                  </div> 
+                  <div class="col-4 text-center">
+                    <img id="svg14" src="dist/img/CNC/14.svg" class="panelImg">
+                  </div> 
+                </div>
+              </div> 
+            </div>
+          </div>
+          <div class="col-3">
+            <!-- small box -->
+            <div class="small-box bg-info pb-5 pt-5">
+              <div class="row pb-4">
+                <div class="col text-center">主軸負載:</div>
+                <div id="m1" class="col text-center ">0</div>
+              </div>
+              <div class="row">
+                <div class="col text-center">主軸轉速:</div>
+                <div id="m2" class="col text-center">0</div>
+              </div>
+          </div>
+          </div>
+        </div>
+        <div class="row ">
+          <div class="col-3">
+            <!-- small box -->
+            <div class="small-box bg-info pt-5 pb-5">
+              <div class="col pb-1">
+                <div class="row pb-2 px-2">
+                  <div class="col-6 text-center">
+                    <img id="svg15" src="dist/img/CNC/15.svg" class="panelImg">
+                  </div> 
+                  <div class="col-6 text-center">
+                    <img id="svg16" src="dist/img/CNC/16.svg" class="panelImg">
+                  </div> 
+                </div>
+              </div> 
+            </div>
+          </div>
+          <div class="col-3">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="col">
+                <div class="row pt-3 pb-3 px-2">
+                  <div class="col-3 text-center">
+                    <img id="svg17" src="dist/img/CNC/17.svg" class="panelImg light">
+                  </div> 
+                  <div class="col-3 text-center">
+                    <img id="svg18" src="dist/img/CNC/18.svg" class="panelImg">
+                  </div> 
+                  <div class="col-3 text-center">
+                    <img id="svg19" src="dist/img/CNC/19.svg" class="panelImg">
+                  </div> 
+                  <div class="col-3 text-center">
+                    <img id="svg20" src="dist/img/CNC/20.svg" class="panelImg">
+                  </div> 
+                </div>
+                <div class="row pb-3 px-5">
+                  <div class="col-4 text-center">
+                    <img id="svg21" src="dist/img/CNC/21.svg" class="panelImg">
+                  </div> 
+                  <div class="col-4 text-center">
+                    <img id="svg22" src="dist/img/CNC/22.svg" class="panelImg">
+                  </div> 
+                  <div class="col-4 text-center">
+                    <img id="svg23" src="dist/img/CNC/23.svg" class="panelImg">
+                  </div> 
+                </div>
+              </div> 
+            </div>
+          </div>
+          <div class="col-3">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="col">
+                <div class="row pt-3 pb-3 px-2">
+                  <div class="col-4 text-center">
+                    <img id="svg24" src="dist/img/CNC/24.svg" class="panelImg">
+                  </div> 
+                  <div class="col-4 text-center">
+                    <img id="svg25" src="dist/img/CNC/25.svg" class="panelImg">
+                  </div> 
+                  <div class="col-4 text-center">
+                    <img id="svg26" src="dist/img/CNC/26.svg" class="panelImg">
+                  </div> 
+                </div>
+                <div class="row pb-3 px-2">
+                  <div class="col-4 text-center">
+                    <img id="svg27" src="dist/img/CNC/27.svg" class="panelImg">
+                  </div> 
+                  <div class="col-4 text-center">
+                    <img id="svg28" src="dist/img/CNC/28.svg" class="panelImg">
+                  </div> 
+                  <div class="col-4 text-center">
+                    <img id="svg29" src="dist/img/CNC/29.svg" class="panelImg">
+                  </div> 
+                </div>
+              </div> 
+            </div>
+          </div>
+          <div class="col-3">
+            <!-- small box -->
+            <div class="small-box bg-info pb-5 pt-5">
+              <div class="row pb-4">
+                <div class="col text-center">主軸刀號:</div>
+                <div id="m3" class="col text-center">0</div>
+              </div>
+              <div class="row">
+                <div class="col text-center">等待刀號:</div>
+                <div id="m4" class="col text-center">0</div>
+              </div>
+          </div>
+          </div>
+        </div>
+        <div class="row ">
+          <div class="col-3">
+            <!-- small box -->
+            <div class="small-box bg-info pt-5 pb-5">
+              <div class="col pb-1">
+                <div class="row pb-2 px-2">
+                  <div class="col-6 text-center">
+                    <img id="svg30" src="dist/img/CNC/30.svg" class="panelImg">
+                  </div> 
+                  <div class="col-6 text-center">
+                    <img id="svg31" src="dist/img/CNC/31.svg" class="panelImg">
+                  </div> 
+                </div>
+              </div> 
+            </div>
+          </div>
+          <div class="col-3">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="col">
+                <div class="row pt-3 pb-3 px-2">
+                  <div class="col-3 text-center">
+                    <img id="svg32" src="dist/img/CNC/32.svg" class="panelImg">
+                  </div> 
+                  <div class="col-3 text-center">
+                    <img id="svg33" src="dist/img/CNC/33.svg" class="panelImg">
+                  </div> 
+                  <div class="col-3 text-center">
+                    <img id="svg34" src="dist/img/CNC/34.svg" class="panelImg">
+                  </div> 
+                  <div class="col-3 text-center">
+                    <img id="svg35" src="dist/img/CNC/35.svg" class="panelImg">
+                  </div> 
+                </div>
+                <div class="row pb-3 px-3">
+                  <div class="col-4 text-center">
+                    <img id="svg36" src="dist/img/CNC/36.svg" class="panelImg">
+                  </div> 
+                  <div class="col-4 pt-3 text-center">
+                    快動百分比:
+                  </div> 
+                  <div id="m6" class="col-4 pt-3 text-center">
+                    0
+                  </div> 
+                </div>
+              </div> 
+            </div>
+          </div>
+          <div class="col-3">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="col">
+                <div class="row pt-2 px-2">
+                  <div class="col-3 text-center">
+                    <img id="svg37" src="dist/img/CNC/37.svg" class="panelImg">
+                  </div> 
+                  <div class="col-3 text-center">
+                    <img id="svg38" src="dist/img/CNC/38.svg" class="panelImg">
+                  </div> 
+                  <div class="col-3 text-center">
+                    <img id="svg39" src="dist/img/CNC/39.svg" class="panelImg">
+                  </div> 
+                  <div class="col-3 text-center">
+                    <img id="svg40" src="dist/img/CNC/40.svg" class="panelImg">
+                  </div> 
+                </div>
+                <div class="row px-5 pt-1 pb-1">
+                  <div class="col-6 text-center">
+                    轉速百分比:
+                  </div> 
+                  <div id="m5" class="col-6 text-center">
+                    0
+                  </div> 
+                </div>
+                <div class="row pb-2 px-3">
+                  <div class="col-4 text-center">
+                    <img id="svg41" src="dist/img/CNC/41.svg" class="panelImg">
+                  </div> 
+                  <div class="col-4 text-center">
+                    <img id="svg42" src="dist/img/CNC/42.svg" class="panelImg">
+                  </div> 
+                  <div class="col-4 text-center">
+                    <img id="svg43" src="dist/img/CNC/43.svg" class="panelImg">
+                  </div>
+                </div>
+              </div> 
+            </div>
+          </div>
+          <div class="col-3">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="row px-4 pt-2 pb-2">
+                <div class="col-3 text-center">
+                  <img id="svg44" src="dist/img/CNC/44.svg" class="panelImg_sm">
+                </div> 
+                <div class="col-3 text-center">
+                  <img id="svg45" src="dist/img/CNC/45.svg" class="panelImg_sm">
+                </div> 
+                <div class="col-3 text-center">
+                  <img id="svg46" src="dist/img/CNC/46.svg" class="panelImg_sm">
+                </div> 
+                <div class="col-3 text-center">
+                  <img id="svg47" src="dist/img/CNC/47.svg" class="panelImg_sm">
+                </div> 
+              </div>
+              <div class="row px-5 pb-2">
+                <div class="col-4 text-center">
+                  <img id="svg48" src="dist/img/CNC/48.svg" class="panelImg_sm">
+                </div> 
+                <div class="col-4 text-center">
+                  <img id="svg49" src="dist/img/CNC/49.svg" class="panelImg_sm">
+                </div> 
+                <div class="col-4 text-center">
+                  <img id="svg50" src="dist/img/CNC/50.svg" class="panelImg_sm">
+                </div> 
+              </div>
+              <div class="row px-5 pb-2">
+                <div class="col-4 text-center">
+                  <img id="svg51" src="dist/img/CNC/51.svg" class="panelImg_sm">
+                </div> 
+                <div class="col-4 text-center">
+                  <img id="svg52" src="dist/img/CNC/52.svg" class="panelImg_sm">
+                </div> 
+                <div class="col-4 text-center">
+                  <img id="svg53" src="dist/img/CNC/53.svg" class="panelImg_sm">
+                </div> 
+              </div>
+          </div>
+          </div>
+        </div>
+        <div class="row ">
+          <div class="col-3">
+            <!-- small box -->
+            <div class="small-box bg-info pb-3">
+              <div class="row pt-4">
+                <div class="col text-center"><h3>啟動</h3></div>
+                <div class="col text-center"><h3>停止</h3></div>
+              </div>
+              <div class="row">
+                <div class="col text-center">
+                  <svg height="75" width="75"><circle cx="37.5" cy="37.5" r="30" stroke="black" stroke-width="3" fill="#006000"></circle></svg>
+                </div>
+                <div class="col text-center">
+                  <svg height="75" width="75"><circle cx="37.5" cy="37.5" r="30" stroke="black" stroke-width="3" fill="#930000"></circle></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="col pt-4 pb-4">
+                <div class="row pt-5 pb-5">
+                  <div class="col-6 text-center">
+                    進給率百分比:
+                  </div> 
+                  <div id="m7" class="col-6 text-center">
+                    0
+                  </div> 
+                </div>
+              </div> 
+            </div>
+          </div>
+          <div class="col-3">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="col">
+                <div class="row pt-3 pb-3 px-2">
+                  <div class="col-4 text-center">
+                    <img id="svg54" src="dist/img/CNC/54.svg" class="panelImg">
+                  </div> 
+                  <div class="col-4 text-center">
+                    <img id="svg55" src="dist/img/CNC/55.svg" class="panelImg">
+                  </div> 
+                  <div class="col-4 text-center">
+                    <img id="svg56" src="dist/img/CNC/56.svg" class="panelImg">
+                  </div> 
+                </div>
+                <div class="row pb-3 px-5">
+                  <div class="col-6 text-center">
+                    <img id="svg57" src="dist/img/CNC/57.svg" class="panelImg">
+                  </div> 
+                  <div class="col-6 text-center">
+                    <img id="svg58" src="dist/img/CNC/58.svg" class="panelImg">
+                  </div> 
+                </div>
+              </div> 
+            </div>
+          </div>
+          <div class="col-3">
+            <!-- small box -->
+            <div class="small-box bg-info pb-5 pt-5">
+              <div class="row pt-4 pb-4">
+                <div class="col text-center">保護:</div>
+                <div class="col text-center">編輯</div>
+              </div>
+          </div>
+          </div>
+        </div>
+        <!-- /.row -->
+{% endblock %}
+{%block JS%}<script src="./backend_access/CNC1.js"></script>{%endblock%}

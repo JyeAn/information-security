@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{%block NAV_Dashbord_open%}menu-is-opening menu-open{%endblock%}
+{% block NAV%}active{%endblock%}
+{%block Path%}AGV{%endblock%}
+{% block AGV%}active{%endblock%}
+{% block container_field %}
+<div class="row pt-2 pb-2">
+    <div class="col-4">
+        <div class="row pb-2">
+            <div class="col-6 text-center"><img src="dist/img/AGV/r.png"></img></div>
+            <div class="col-6"><h2>AGV</h2></div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-6 text-center"><img src="dist/img/AGV/a.png" width="60" height="60"></img></div>
+            <div class="col-6 pt-2"><h2>A點</h2></div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-6 text-center"><img src="dist/img/AGV/b.png" width="60" height="60"></img></div>
+            <div class="col-6 pt-2"><h2>B點</h2></div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-6 text-center"><img src="dist/img/AGV/c.png" width="60" height="60"></img></div>
+            <div class="col-6 pt-2" ><h2>C點</h2></div>
+        </div>
+        <div class="row">
+            <div class="col-6 text-center"><img src="dist/img/AGV/d.png" width="60" height="60"></img></div>
+            <div class="col-6 pt-2"><h2>D點</h2></div>
+        </div>
+        
+    </div>
+    <div class="col-8">
+        <svg id="map" height="812.4375" width="95%" viewBox="0 0 384 608">
+            <image id="border" z-index="2" fill-opacity="0.3" fill="floralwhite" stroke="black" stroke-width="1" xlink:href="dist/img/AGV/1.png"></image>
+            <image x="190" y="158" width="40" height="40" xlink:href="dist/img/AGV/a.png"></image> 
+            <image x="308" y="154.8" width="40" height="40" xlink:href="dist/img/AGV/b.png"></image>
+            <image x="272" y="181.4" width="40" height="40" xlink:href="dist/img/AGV/c.png"></image>   
+            <image x="163.2" y="439" width="40" height="40" xlink:href="dist/img/AGV/d.png"></image>   
+            <image id = "agv" x="175.323415082723" y="449" width="20" height="20" xlink:href="dist/img/AGV/r.png"></image>   
+        </svg>
+    </div>
+</div>
+
+
+{% endblock %}
+{%block JS%}<script src="./backend_access/AGV.js"></script>{%endblock%}

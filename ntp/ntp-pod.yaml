@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ntp
+  labels:
+    app: ntp
+spec:
+  containers:
+  - name: pod-ntp
+    image: kennycat/ntp:v1.0
+    ports:
+    - containerPort: 3000
